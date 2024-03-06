@@ -3,13 +3,19 @@
 
 def is_prime(func):
     def wrapper(*args, **kwargs):
+        primes = []
         result = func(*args, **kwargs)
-        if result % 2 == 0 or (result % 3 == 0 and result % 7 == 0) or (result % 3 == 0 and result % 5 == 0) or (
-                result % 7 == 0 and result % 5 == 0):
-            print('Составное')
-        else:
+        for num in range(2, result + 1):
+            for i in range(2, int(num / 2) + 1):
+                if (num % i) == 0:
+                    break
+            else:
+                primes.append(num)
+        if result == primes[-1]:
             print('Простое')
-        return result
+        else:
+            print('Составное')
+        return result, primes
     return wrapper
 
 
@@ -20,5 +26,6 @@ def sum_three(*args, **kwargs):
     return sum(args)
 
 
-result = sum_three(3, 30, 1)
+result = sum_three(50, 100, 19)
 print(result)
+
